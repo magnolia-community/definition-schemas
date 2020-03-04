@@ -1,0 +1,22 @@
+{
+    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/restEndpoint.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Delivery endpoint v2",
+    "description": "Delivery endpoint v2 for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Delivery+endpoint+API+v2",
+    "type": "object",
+    "properties": {
+      "additionalProperties": true,
+      "childNodeTypes": { "type": "string" },
+      "class": { "type": "string" },
+      "bypassWorkspaceAcls": { "type": "boolean" },
+      "depth": { "type": "integer" },
+      "includeSystemProperties": { "type": "boolean" },
+      "endpointPath": { "type": "string" },
+      "limit": { "type": "integer" },
+      "references": { "type": "string" },
+      "referenceDepth": { "type": "integer" },
+      "referenceRepeat": { "type": "boolean" },
+      "strict": { "type": "boolean" },
+      "workspace": { "type": "string" }
+    }
+}

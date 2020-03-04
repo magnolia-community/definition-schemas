@@ -1,0 +1,53 @@
+{
+    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/dialog.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Dialog definition",
+    "description": "Dialogs for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Dialog+definition",
+    "type": "object",
+    "properties": {
+      "additionalProperties": true,
+      "class": { "type": "string" },
+      "actions": { "type": "object" },
+      "actionArea": { "type": "string" },
+      "dialogLabelItemProperty": { "type": "string" },
+      "form": {
+        "type": "object",
+        "properties": {
+          "tabs": {
+            "items": [
+              { 
+                "type": "object",
+                "properties": {
+                  "fields": {
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "additionalProperties": true,
+                          "class": { "type": "string" },
+                          "description": { "type": "string" },
+                          "fieldType": { "type": "string" },
+                          "i18n": { "type": "boolean" },
+                          "label": { "type": "string" },
+                          "name": { "type": "string" },
+                          "placeholder": { "type": "string" },
+                          "readOnly": { "type": "string" },
+                          "required": { "type": "boolean" },
+                          "requiredErrorMessage": { "type": "string" },
+                          "styleName": { "type": "string" },
+                          "transformerClass": { "type": "string" }
+                        }
+                      }
+                    ]
+                  },
+                  "name": { "type": "string" }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "modalityLevel": { "type": "string" },
+      "wide": { "type": "boolean" }
+    }
+}

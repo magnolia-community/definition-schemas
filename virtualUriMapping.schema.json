@@ -1,0 +1,13 @@
+{
+    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/virtualUriMapping.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Virtual URI Mapping",
+    "description": "Virtual URI Mappings for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Virtual+URI+mapping",
+    "type": "object",
+    "properties": {
+      "additionalProperties": true,
+      "class": { "type": "string" },
+      "fromUri": { "type": "string" },
+      "toUri": { "type": "string" }
+    }
+}

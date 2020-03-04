@@ -1,0 +1,35 @@
+{
+    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/contenttype.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Content type definition",
+    "description": "Content types for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Content+type+definition",
+    "type": "object",
+    "properties": {
+      "additionalProperties": true,
+      "class": { "type": "string" },
+      "datasource": {
+        "type": "object",
+        "properties": {
+          "additionalProperties": true,
+          "autocreate": { "type": "boolean" },
+          "namespaces": {
+            "type": "object",
+            "properties": {
+              "additionalProperties": true,
+              "class": { "type": "string" }
+            }
+          },
+          "workspace": { "type": "string" }
+        }
+      },
+      "model": {
+        "type": "object",
+        "properties": {
+          "additionalProperties": true,
+          "class": { "type": "string" },
+          "nodeType": { "type": "string" },
+          "properties": { "type": "string" }
+        }
+      }
+    }
+}
