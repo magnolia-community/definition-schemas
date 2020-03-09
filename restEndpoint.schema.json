@@ -6,17 +6,52 @@
     "type": "object",
     "properties": {
       "additionalProperties": true,
-      "childNodeTypes": { "type": "string" },
-      "class": { "type": "string" },
-      "bypassWorkspaceAcls": { "type": "boolean" },
-      "depth": { "type": "integer" },
-      "includeSystemProperties": { "type": "boolean" },
-      "endpointPath": { "type": "string" },
-      "limit": { "type": "integer" },
-      "references": { "type": "string" },
-      "referenceDepth": { "type": "integer" },
-      "referenceRepeat": { "type": "boolean" },
-      "strict": { "type": "boolean" },
-      "workspace": { "type": "string" }
+      "childNodeTypes": { 
+        "description": "A list of allowed node types for child nodes.",
+        "type": "string" },
+      "class": { 
+        "description": "Must be info.magnolia.rest.delivery.jcr.v2.JcrDeliveryEndpointDefinition or a subclass.",
+        "type": "string" 
+      },
+      "bypassWorkspaceAcls": { 
+        "description": "If set to true, JCR security is bypassed. Use this property with care and for development purposes only.",
+        "type": "boolean" 
+      },
+      "depth": {
+        "description": "The depth of child nodes to include in each returned item. This does not restrict which nodes will be returned from a query. It just determines the number of child nodes in each returned item.",
+        "type": "integer" 
+      },
+      "includeSystemProperties": { 
+        "description": "Specifies whether the result should show system properties.",
+        "type": "boolean" 
+      },
+      "endpointPath": { 
+        "description": "If the property is not set, the endpointPath is evaluated automatically. If you set the property manually, it should not contain special characters to fit into a proper URL.",
+        "type": "string" 
+      },
+      "limit": { 
+        "description": "The number of nodes (of level 0) in the result. Used only in the queryNodes method. The property can be overridden when calling queryNodes with a request parameter.",
+        "type": "integer" 
+      },
+      "references": { 
+        "description": "The references property allows to define to resolve referenced nodes.",
+        "type": "string" 
+      },
+      "referenceDepth": { 
+        "description": "Defines on how many levels the references should be considered and returned in a response if found. Setting referenceDepth: -1 bypasses the depth limit and returns nodes at any reference depth.",
+        "type": "integer" 
+      },
+      "referenceRepeat": { 
+        "description": "The default setting eliminates resolving self-references into fully expanded nodes and thus creating reference cycles. If a self-reference is found, only the value of the @id property of the self-referencing node is returned instead.",
+        "type": "boolean" 
+      },
+      "strict": { 
+        "description": "Defines whether to include only the exact node type and ignore the sub types. If true then it is applied to both the nodeTypes and childNodeTypes.",
+        "type": "boolean" 
+      },
+      "workspace": { 
+        "description": "The name of the JCR workspace to deliver content from.",
+        "type": "string" 
+      }
     }
 }
