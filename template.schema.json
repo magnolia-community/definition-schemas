@@ -70,7 +70,6 @@
       "class": { "type": "string" },
       "description": { "type": "string" },
       "dialog": { "type": "string" },
-      "extends": { "string": "string" },
       "modelClass": { "type": "string" },
       "parameters": { "type": "object" },
       "renderType": { "type": "string" },
