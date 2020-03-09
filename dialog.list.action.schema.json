@@ -12,8 +12,14 @@
           {
             "type":"object",
             "properties": {
-              "name": { "type": "string" },
-              "class": { "type": "string" }
+              "name": { 
+                "type": "string",
+                "examples": [ "commit", "cancel" ]
+              },
+              "class": { 
+                "type": "string",
+                "examples": [ "info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition", "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition" ]
+              }
             }
           }
         ]
