@@ -8,22 +8,22 @@
       "areas": {
         "type": "object",
         "properties": {
-          "additionalProperties": true,
           "areas": { "$ref": "#/definitions/areas" },
           "availableComponents": {
             "type": "object",
             "properties": {
               "class": { "type": "string" }
-            }
+            },
+            "additionalProperties": true
           },
           "autoGeneration": { 
             "type": "object",
             "properties": {
-              "additionalProperties": true,
               "class": { "type": "string" },
               "content": { "type": "object" },
               "generatorClass": { "type": "string" } 
-            }
+            },
+            "additionalProperties": true
           },
           "class": { "type": "string" },
           "createAreaNode": { "type": "boolean" },  
@@ -42,14 +42,14 @@
           "inheritance": {
             "type": "object",
             "properties": {
-              "additionalProperties": true,
               "class": { "type": "string" },
               "components": { "type": "string" },
               "enabled": { "type": "boolean" },
               "nodeComparatorClass": { "type": "string" },
               "predicateClass": { "type": "string" },
               "properties": { "type": "string" }
-            }
+            },
+            "additionalProperties": true
           },
           "maxComponents": { "type": "number" },
           "modelClass": { "type": "string" },
@@ -65,7 +65,6 @@
 
     "type": "object",
     "properties": {
-      "additionalProperties": true,
       "areas": { "$ref": "#/definitions/areas" },
       "class": { "type": "string" },
       "description": { "type": "string" },
@@ -78,5 +77,6 @@
       "title": { "type": "string" },
       "type": { "type": "string" },
       "visible": {  "type": "boolean" }
-    }
+    },
+    "additionalProperties": true
 }
