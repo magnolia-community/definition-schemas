@@ -5,7 +5,6 @@
     "description": "Delivery endpoint v2 for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Delivery+endpoint+API+v2",
     "type": "object",
     "properties": {
-      "additionalProperties": true,
       "childNodeTypes": { 
         "description": "A list of allowed node types for child nodes.",
         "type": "string" },
@@ -53,5 +52,6 @@
         "description": "The name of the JCR workspace to deliver content from.",
         "type": "string" 
       }
-    }
+    },
+    "additionalProperties": true
 }
