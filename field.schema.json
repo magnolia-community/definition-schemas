@@ -5,8 +5,14 @@
     "description": "Fields for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Field+definition",
     "type": "object",
     "properties": {
-      "additionalProperties": true,
-      "defintionClass": { "type": "string" },
-      "factoryClass": { "type": "string" }
-    }
+      "defintionClass": {
+        "description": "A definition class defines the field. It typically reads properties from the field definition. The definition class must implement the FieldDefinition interface.",
+        "type": "string" 
+      },
+      "factoryClass": { 
+        "description": "A factory class creates and initializes Vaadin fields based on the field definition.",
+        "type": "string" 
+      }
+    },
+    "additionalProperties": true
 }
