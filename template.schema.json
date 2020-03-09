@@ -6,20 +6,28 @@
 
     "definitions": {
       "areas": {
+        "description": "Areas control page structure. An area definition defines what components editors can add in the area and how many. Areas also provide repeatability: an area template typically loops through the components inside it, rendering them one by one.",
         "type": "object",
         "properties": {
           "areas": { "$ref": "#/definitions/areas" },
           "availableComponents": {
+            "description": "A map of components that editors can add in the area. Reference a component by its ID: <module>:<path>. See Restricting component availability in an area template. This property is not applicable to areas of type noComponent.",
             "type": "object",
             "properties": {
-              "class": { "type": "string" }
+              "class": { 
+                "type": "object"
+              }
             },
             "additionalProperties": true
           },
           "autoGeneration": { 
             "type": "object",
             "properties": {
-              "class": { "type": "string" },
+              "class": {
+                "description": "Creates components inside the area automatically without editor involvement. Anything you define inside the content item will be generated. See Component autogeneration.",
+                "type": "string",
+                "default": "info.magnolia.rendering.template.configured.ConfiguredAutoGeneration"
+              },
               "content": { "type": "object" },
               "generatorClass": { "type": "string" } 
             },
@@ -52,14 +60,41 @@
             },
             "additionalProperties": true
           },
-          "maxComponents": { "type": "number" },
-          "modelClass": { "type": "string" },
-          "parameters": { "type": "object" },
+          "maxComponents": { 
+            "description": "Maximum number of components an editor can add to the area. Only applicable to list areas.",
+            "type": "number"
+          },
+          "modelClass": {
+            "description": "A model class that contains business logic for the template. The model class needs to implement the RenderingModel interface. The renderer creates a bean based on the modelClass. Current content, definition and the parent model are passed to the constructor. This object is instantiated for each rendering.",
+            "type": "string",
+            "examples": [ "info.magnolia.demo.travel.tours.model.NavigationAreaModel" ]
+          },
+          "parameters": {
+            "description": "A map of custom template properties that you can access from a script without having to write a class.",
+            "type": "object",
+            "examples": [ "myParam: myValue" ]
+          },
           "optional": { "type": "boolean" },
-          "renderType": { "type": "string" },
-          "subtype": { "type": "string" },
-          "templateScript": {  "type": "string" },
-          "type": { "type": "string" }
+          "renderType": { 
+            "description": "Renderer to use. Magnolia supports freemarker by default.",
+            "type": "string",
+            "default": "freemarker"
+          },
+          "subtype": {
+            "description": "Assigns a subtype to the area. There are no default values and you can use arbitrary values to categorize your areas in any way you like.",
+            "type": "string" 
+          },
+          "templateScript": {
+            "description": "Even though the templateScript property is required, it is not necessary to add the property to single and list area definitions. The system uses default scripts. If you need to render anything additional, like area div tags or nested areas, write an script and reference it in the templateScript property.", 
+            "type": "string",
+            "examples": [ "/example-module/templates/pages/areas/mainArea.ftl", "/example-module/templates/components/areas/componentArea.ftl" ]
+          },
+          "type": { 
+            "description": "Type of the area. Defines whether editors can add components inside the area and how many.",
+            "type": "string",
+            "default": "list",
+            "examples": [ "list", "noComponent", "single" ]
+          }
         }
       },
       "additionalProperties": true
@@ -67,18 +102,64 @@
 
     "type": "object",
     "properties": {
-      "areas": { "$ref": "#/definitions/areas" },
-      "class": { "type": "string" },
-      "description": { "type": "string" },
-      "dialog": { "type": "string" },
-      "modelClass": { "type": "string" },
-      "parameters": { "type": "object" },
-      "renderType": { "type": "string" },
-      "subtype": { "type": "string" },
-      "templateScript": { "type": "string" },
-      "title": { "type": "string" },
-      "type": { "type": "string" },
-      "visible": {  "type": "boolean" }
+      "areas": {
+        "description": "Areas control page structure. An area definition defines what components editors can add in the area and how many. Areas also provide repeatability: an area template typically loops through the components inside it, rendering them one by one.",
+        "$ref": "#/definitions/areas"
+      },
+      "class": { 
+        "description": "The fully-qualified class name for the Java bean representing the definition data of this item. The default class is ConfiguredTemplateDefinition.",
+        "type": "string",
+        "default": "info.magnolia.rendering.template.configured.ConfiguredTemplateDefinition",
+        "examples": [ "info.magnolia.module.site.templates.PageTemplateDefinition" ]
+      },
+      "description": { 
+        "description": "Template description displayed to editors. The value can be literal or retrieved from the message bundle (specified by i18nBasename) with a key.",
+        "type": "string" 
+      },
+      "dialog": { 
+        "description": "Dialog definition ID in <module-name>:<path to dialog definition> format.",
+        "type": "string",
+        "examples": [ "example-module:pages/pageProperties", "example-module:components/textImage" ]
+      },
+      "modelClass": {
+        "description": "A model class that contains business logic for the template. The model class needs to implement the RenderingModel interface. The renderer creates a bean based on the modelClass. Current content, definition and the parent model are passed to the constructor. This object is instantiated for each rendering of a page or component.",
+        "type": "string",
+        "examples": [ "info.magnolia.demo.travel.tours.model.TourDetailModel", "info.magnolia.demo.travel.tours.model.TourTeaserModel" ]
+      },
+      "parameters": {
+        "description": "A map of custom template properties that you can access from a script without having to write a class.",
+        "type": "object",
+        "examples": [ "myParam: myValue" ]
+      },
+      "renderType": { 
+        "description": "Renderer to use. Magnolia supports freemarker by default. If you have the Site module you can set renderType=site, then define a common templateScript in the template prototype to use on all pages of the site.",
+        "type": "string",
+        "default": "freemarker",
+        "examples": [ "freemarker", "site" ]
+      },
+      "subtype": {
+        "description": "Assigns a subtype to the template. You can use subtypes to aggregate content. For example, aggregate all content pages of subtype news into a teaser component. There are no default values and you can use arbitrary values to categorize your templates in any way you like.",
+        "type": "string" 
+      },
+      "templateScript": {
+        "description": "Path to the template script as /<module>/templates/<type>/<file>.<ext> format. See Resources for more about script storage locations.",
+        "type": "string",
+        "examples": [ "/example-module/templates/pages/main.ftl", "/example-module/templates/components/textImage.ftl" ]
+      },
+      "title": { 
+        "description": "Title of the template displayed to editors. The value can be literal or retrieved from a message bundle (which is defined in i18nBasename) with a key. Use alphanumeric characters in literal values.",
+        "type": "string"
+      },
+      "type": {
+        "description": "Assigns a type to the template. Types control template availability in the page hierarchy. For example type home is available at the site root level, section at level 2, and content at level 3. See Page template availability on how to use the type property.",
+        "type": "string",
+        "examples": [ "home", "section", "content" ]
+      },
+      "visible": {
+        "description": "A true value makes the template available to editors. When visible is set to false, the template is not available. However, the opposite is not always true. There are more ways to control page template availability.",
+        "type": "boolean",
+        "default": true
+      }
     },
     "additionalProperties": true
 }
