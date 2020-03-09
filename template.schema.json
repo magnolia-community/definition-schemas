@@ -37,7 +37,8 @@
               "dynamic": { "type": "boolean"  },
               "mechanism": { "type": "string" },
               "ttl": { "type": "number" }
-            }
+            },
+            "additionalProperties": true
           },
           "inheritance": {
             "type": "object",
@@ -60,7 +61,8 @@
           "templateScript": {  "type": "string" },
           "type": { "type": "string" }
         }
-      }
+      },
+      "additionalProperties": true
     },
 
     "type": "object",
