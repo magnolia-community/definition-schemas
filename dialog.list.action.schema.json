@@ -26,6 +26,8 @@
       "class": { "type": "string" },
       "actions": { 
         "type": "array",
+        "minItems": 2,
+        "maxItems": 5,
         "items": [
           {
             "$ref": "#/definitions/actions"
