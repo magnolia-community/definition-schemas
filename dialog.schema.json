@@ -21,6 +21,7 @@
                 "default": "Save"
               }
             },
+            "additionalProperties": true
           },
           "cancel": {
             "type": "object",
