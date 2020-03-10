@@ -5,9 +5,32 @@
     "description": "Virtual URI Mappings for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Virtual+URI+mapping",
     "type": "object",
     "properties": {
-      "additionalProperties": true,
-      "class": { "type": "string" },
-      "fromUri": { "type": "string" },
-      "toUri": { "type": "string" }
-    }
+      "class": {
+        "description": "Class that performs the mapping and defines the configuration.",
+        "type": "string",
+        "examples": [
+          "info.magnolia.virtualuri.mapping.DefaultVirtualUriMapping",
+          "info.magnolia.virtualuri.mapping.RegexpVirtualUriMapping",
+          "info.magnolia.virtualuri.mapping.RotatingVirtualUriMapping",
+          "info.magnolia.virtualuri.mapping.HostBasedVirtualUriMapping",
+          "info.magnolia.virtualuri.mapping.HostBasedRegexpVirtualUriMapping",
+          "info.magnolia.multisite.mapping.MultiSiteRootVirtualUriMapping",
+          "info.magnolia.multisite.mapping.MultiSiteRegexpVirtualUriMapping"
+        ]
+      },
+      "fromUri": {
+        "description": "Pattern to match in the requested URI.",
+        "type": "string"
+      },
+      "toUri": {
+        "description": "Concrete URI where the request is mapped to. You can use prefixes forward, redirect or permanment (301 redirect).",
+        "type": "string",
+        "examples": [ "forward:/marketing/campaigns/winter2016" ] 
+      },
+      "site": {
+        "description": "Specifies the site that should be used for the mapping.",
+        "type": "string"
+      }
+    },
+    "additionalProperties": true
 }
