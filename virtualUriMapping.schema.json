@@ -6,7 +6,7 @@
     "type": "object",
     "properties": {
       "class": {
-        "description": "Class that performs the mapping and defines the configuration.",
+        "description": "Class that performs the mapping and defines the configuration. The most common use case is the DefaultVirtualUriMapping which expects a 'fromUri' and a 'toUri' configuration.",
         "type": "string",
         "examples": [
           "info.magnolia.virtualuri.mapping.DefaultVirtualUriMapping",
@@ -20,15 +20,20 @@
       },
       "fromUri": {
         "description": "Pattern to match in the requested URI.",
-        "type": "string"
+        "type": "string",
+        "default": "/fromPath"
       },
       "toUri": {
-        "description": "Concrete URI where the request is mapped to. You can use prefixes forward, redirect or permanment (301 redirect).",
+        "description": "Concrete URI where the request is mapped to. You can use prefixes forward, redirect or permanent (301 redirect).",
         "type": "string",
-        "examples": [ "forward:/marketing/campaigns/winter2016" ] 
+        "examples": [ 
+          "forward:/to/some/path",
+          "redirect:/to/some/path",
+          "permanent:/to/some/path"
+        ] 
       },
       "site": {
-        "description": "Specifies the site that should be used for the mapping.",
+        "description": "Specifies the site that should be used for the mapping when using the MultiSiteRegexpVirtualUriMapping class.)",
         "type": "string"
       }
     },
