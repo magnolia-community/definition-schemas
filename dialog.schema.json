@@ -19,22 +19,21 @@
               "label": { 
                 "type": "string",
                 "default": "Save"
-              },
-              "additionalProperties": true
+              }
             },
-            "cancel": {
-              "type": "object",
-              "properties": {
-                "class": { 
-                  "type": "string",
-                  "default": "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition"
-                },
-                "label": { 
-                  "type": "string",
-                  "default": "Cancel"
-                },
-                "additionalProperties": true
+          },
+          "cancel": {
+            "type": "object",
+            "properties": {
+              "class": { 
+                "type": "string",
+                "default": "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition"
               },
+              "label": { 
+                "type": "string",
+                "default": "Cancel"
+              }
+            },
             "additionalProperties": true
           }
         },
@@ -48,6 +47,7 @@
           "tabs": {
             "items": [
               { 
+                "name": { "type": "string" },
                 "type": "object",
                 "properties": {
                   "fields": {
@@ -71,8 +71,7 @@
                         "additionalProperties": true
                       }
                     ]
-                  },
-                  "name": { "type": "string" }
+                  }
                 }
               }
             ]
