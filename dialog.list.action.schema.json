@@ -3,37 +3,10 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Dialog definition (w/ list action configuration)",
     "description": "Dialogs for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Dialog+definition",
-    
-    "definitions": {
-      "actions": {
-        "type":"object",
-          "properties": {
-            "name": { 
-              "type": "string",
-              "examples": [ "commit", "cancel" ]
-            },
-            "class": { 
-              "type": "string",
-              "examples": [ "info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition", "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition" ]
-            }
-          }
-      }
-    },
-    
     "type": "object",
     "properties": {
-      "additionalProperties": true,
       "class": { "type": "string" },
-      "actions": { 
-        "type": "array",
-        "minItems": 2,
-        "maxItems": 5,
-        "items": [
-          {
-            "$ref": "#/definitions/actions"
-          }
-        ]
-      },
+      "actions": { "type": "object" },
       "actionArea": { "type": "string" },
       "dialogLabelItemProperty": { "type": "string" },
       "form": {
@@ -75,5 +48,6 @@
       },
       "modalityLevel": { "type": "string" },
       "wide": { "type": "boolean" }
-    }
+    },
+    "additionalProperties": true
 }

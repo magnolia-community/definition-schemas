@@ -5,9 +5,41 @@
     "description": "Dialogs for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Dialog+definition",
     "type": "object",
     "properties": {
-      "additionalProperties": true,
       "class": { "type": "string" },
-      "actions": { "type": "object" },
+      "actions": { 
+        "type": "object",
+        "properties": {
+          "commit": {
+            "type": "object",
+            "properties": {
+              "class": { 
+                "type": "string",
+                "default": "info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition"
+              },
+              "label": { 
+                "type": "string",
+                "default": "Save"
+              },
+              "additionalProperties": true
+            },
+            "cancel": {
+              "type": "object",
+              "properties": {
+                "class": { 
+                  "type": "string",
+                  "default": "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition"
+                },
+                "label": { 
+                  "type": "string",
+                  "default": "Cancel"
+                },
+                "additionalProperties": true
+              },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
       "actionArea": { "type": "string" },
       "dialogLabelItemProperty": { "type": "string" },
       "form": {
@@ -23,7 +55,6 @@
                       {
                         "type": "object",
                         "properties": {
-                          "additionalProperties": true,
                           "class": { "type": "string" },
                           "description": { "type": "string" },
                           "fieldType": { "type": "string" },
@@ -36,7 +67,8 @@
                           "requiredErrorMessage": { "type": "string" },
                           "styleName": { "type": "string" },
                           "transformerClass": { "type": "string" }
-                        }
+                        },
+                        "additionalProperties": true
                       }
                     ]
                   },
@@ -49,5 +81,6 @@
       },
       "modalityLevel": { "type": "string" },
       "wide": { "type": "boolean" }
-    }
+    },
+    "additionalProperties": true
 }
