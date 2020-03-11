@@ -5,19 +5,25 @@
     "description": "Dialogs for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Dialog+definition",
     "type": "object",
     "properties": {
-      "class": { "type": "string" },
+      "class": { 
+        "description": "The default definition class for dialogs is ConfiguredFormDialogDefinition.",
+        "type": "string",
+        "default": "info.magnolia.ui.dialog.ConfiguredFormDialogDefinition"
+      },
       "actions": { 
-        "description": "Contains action definitions  which define how the data is submitted. The actions are rendered to users as buttons. Typically you need at least save and cancel actions.",
+        "description": "Contains action definitions which define how the data is submitted. The actions are rendered to users as buttons. Typically you need at least save and cancel actions.",
         "type": "object",
         "properties": {
           "commit": {
             "type": "object",
             "properties": {
               "class": { 
+                "description": "Defines an action for saving a dialog. This handler can be overriden by extending from the default class.",
                 "type": "string",
-                "default": "info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition"
+                "default": "info.magnolia.ui.dialog.action.SaveDialogActionDefinition"
               },
-              "label": { 
+              "label": {
+                "description": "Button label.",
                 "type": "string",
                 "default": "Save"
               }
@@ -27,11 +33,13 @@
           "cancel": {
             "type": "object",
             "properties": {
-              "class": { 
+              "class": {
+                "description": "Defines an action for cenceling a dialog.",
                 "type": "string",
-                "default": "info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition"
+                "default": "info.magnolia.ui.dialog.action.CancelDialogActionDefinition"
               },
-              "label": { 
+              "label": {
+                "description": "Button label.",
                 "type": "string",
                 "default": "Cancel"
               }
@@ -43,7 +51,18 @@
       },
       "actionArea": {
         "description": "Lets you provide additional actions and specify a renderer, if required. You need a renderer when the action requires more than just a button (for instance for an upload action).",
-        "type": "string" 
+        "type": "object",
+        "properties": {
+          "secondaryActions": {
+            "description": "Add subnodes to match the secondary actions defined in the actions node. The order of the subnodes defines the sequence in which they are rendered. Actions configured under secondaryActions are rendered on the left and other actions are on the right side.",
+            "type": "object"
+          },
+          "actionRenderers": {
+            "description": "Define a subnode for each action which requires its own renderer. The subnode should contain a rendererClass property. The class must implement ActionRenderer.",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
       },
       "dialogLabelItemProperty": { 
         "description": "Allows you to set the dialog's caption dynamically through a property holding the preferred value for the caption, for example through the jcrName property. If no dialogLabelItemProperty is configured for the dialog, Magnolia tries to retrieve the caption from the label property or from the respective i18n key in the language bundle associated with the dialog.",
@@ -59,10 +78,13 @@
         "properties": {
           "tabs": {
             "items": [
-              { 
-                "name": { "type": "string" },
+              {
                 "type": "object",
                 "properties": {
+                  "name": {
+                    "description": "The name of the tab. Arbitrary node name. Use a name that describes the content of the tab like imageTab or addressTab.",
+                    "type": "string" 
+                  },
                   "fields": {
                     "items": [
                       {
