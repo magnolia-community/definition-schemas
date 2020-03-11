@@ -219,7 +219,8 @@
               }
             ]
           }
-        }
+        },
+        "additionalProperties": true
       },
       "modalityLevel": { 
         "description": "Modality level defines how intrusive the dialog is. Valid values are strong (default), light and non-modal .",
