@@ -5,31 +5,92 @@
     "description": "Content types for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Content+type+definition",
     "type": "object",
     "properties": {
-      "additionalProperties": true,
-      "class": { "type": "string" },
+      "class": {
+        "description": "The default definition class for content types is ConfiguredJcrDataSourceDefinition. This configuration is not required unless you need to override the default class.",
+        "type": "string",
+        "default": "nfo.magnolia.types.datasource.jcr.ConfiguredJcrDataSourceDefinition"
+      },
       "datasource": {
         "type": "object",
         "properties": {
-          "additionalProperties": true,
-          "autocreate": { "type": "boolean" },
-          "namespaces": {
-            "type": "object",
-            "properties": {
-              "additionalProperties": true,
-              "class": { "type": "string" }
-            }
+          "autocreate": {
+            "description": "If set true, the it will create the workspace (if not yet exisiting), register the JCR namespaces defined by the namespaces property (if they haven't been registered yet) and register the JCR node types defined by the model.nodeType and subModels[i].nodeType properties (if they haven't been registered yet).",
+            "type": "boolean",
+            "default": false
           },
-          "workspace": { "type": "string" }
-        }
+          "namespaces": {
+            "description": "A map of namespaces. The property name is arbitrary. The namespace name must comply with the rules for XML namespaces.",
+            "type": "object",
+            "examples": [ "mt: https://www.magnolia-travel.com/jcr/1.0/mt" ]
+          },
+          "rootPath": {
+            "description": "The root path for content type items in the given JCR workspace.",
+            "type": "string",
+            "default": "/"
+          },
+          "type": {
+            "description": "The type of the data source. If the value is JCR, the definition class must implement JcrDataSourceDefinition.",
+            "type": "string",
+            "default": "JCR"
+          },
+          "workspace": {
+            "description": "The name of the JCR workspace to store the content items. When the definition item is loaded, and if there is no workspace registered by the given name and the autoCreate property is set to true, the system will register the workspace.", 
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
       },
       "model": {
+        "description": "Definition of the model.",
         "type": "object",
         "properties": {
-          "additionalProperties": true,
-          "class": { "type": "string" },
-          "nodeType": { "type": "string" },
-          "properties": { "type": "string" }
+          "nodeType": {
+            "description": "The name of the JCR node type for storing an item of the given content type. If the given node type has not been registered yet, the system automatically registers a new node type by the given name. The type generated inherits from the Magnolia mgnl:content node type. If nodeType is not provided, mgnl:content is used by default.",
+            "type": "string",
+            "default": "mgnl:content"
+          },
+          "properties": {
+            "description": "A list of property definition objects. Similar to the field configuration of a dialog or app.",
+            "type": "object",
+            "properties": {
+              "i18n": {
+                "description": "Enables i18n support for the property. The languages available will be configured in the fallback site definition.",
+                "type": "boolean",
+                "default": false
+              },
+              "multiple": {
+                "description": "The true setting allows storing multiple values of the property.",
+                "type": "boolean",
+                "default": false
+              },
+              "name": {
+                "description": "The name of the property. The name is used for storing values in the underlying data source.",
+                "type": "string"
+              },
+              "required": {
+                "description": "Makes the property mandatory.",
+                "type": "boolean",
+                "default": false
+              },
+              "type": {
+                "description": "The data type of property or a reference to another type.",
+                "type": "string",
+                "default": "String",
+                "examples": [
+                  "Boolean",
+                  "Date",
+                  "Decimal",
+                  "Double",
+                  "Long",
+                  "String",
+                  "richText",
+                  "reference:contentTypeName"
+                ]
+              }
+            }
+          }
         }
       }
-    }
+    },
+    "additionalProperties": true
 }
