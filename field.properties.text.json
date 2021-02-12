@@ -1,0 +1,62 @@
+{
+    "$id": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/field.properties.text.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "UI6 Text field",
+    "description": "Text field properties for Magnolia CMS https://docs.magnolia-cms.com/product-docs/Templating/Dialog-definition/Field-definition/List-of-fields/Text-field.html",
+    "type": "object",
+    "properties": {
+        "description": {
+            "description": "Help text displayed when the user clicks the help icon. The value can be literal or retrieved from the message bundle with a key. Use alphanumeric characters in literal values. Not applicable to the static field.", 
+            "type": "string"
+        },
+        "i18n": { 
+            "description": "Enables i18n authoring support which allows editors to write foreign-language or regionally targeted content. A two-letter language identifier (en, de, fr etc.) is displayed on controls where i18n is set to true.",
+            "type": "boolean" 
+        },
+        "label": { 
+            "description": "Field label displayed to editors. The value can be literal such as Product name or retrieved from the message bundle with a key such as products.product.label. Use alphanumeric characters in literal values. If you don't provide the property then Magnolia falls back to a generated i18n key and displays they key in the UI. If you don't want a label at all then define the property and set its value to empty space such as label: ' ' in YAML.",
+            "type": "string" 
+        },
+        "name": {
+            "description": "Name of the node where the value is saved. The name jcrName is reserved. Use alphanumeric characters",
+            "type": "string" 
+        },
+        "placeholder": {
+            "description": "The placeholder text to be displayed in the empty field. The property replaces the deprecated placeholder text field. Applicable in the text, link and comboBox fields. The field is optional, but you should provide a translation or a hard-coded label, otherwise the empty field will display its auto-generated 18n key instead.",
+            "type": "string" 
+        },
+        "readOnly": {
+            "description": "Makes the field uneditable. Adding this property has the same effect as creating a static field",
+            "type": "string" 
+        },
+        "required": {
+            "description": "Makes the field required (mandatory). An asterisk is displayed next to the field label. See also Checking for null values.",
+            "type": "boolean" 
+        },
+        "requiredErrorMessage": {
+            "description": "Error message displayed when required is true and the user saves an empty field. The value can be literal or retrieved from the message bundle with a key such as validation.message.required.",
+            "type": "string" 
+        },
+        "styleName": {
+            "description": "Adds one or more style names to this component. Multiple styles can be specified as a space-separated list of style names such as checkbox disabled. The style name will be rendered as an HTML class name, which can be used in a CSS definition. The class name is added to the field by calling the Vaadin method addStyleName.",
+            "type": "string" },
+        "type": {
+            "description": "JCR property type of the stored value such as String, Boolean, Date or any other supported and defined data type. Most fields set a default value automatically.",
+            "type": "string",
+            "examples": [
+                "Boolean",
+                "Binary",
+                "Date",
+                "Decimal",
+                "Double",
+                "Decimal",
+                "Name",
+                "Path",
+                "String",
+                "Reference",
+                "Weakreference",
+                "Uri"
+            ] 
+        }
+    }
+}

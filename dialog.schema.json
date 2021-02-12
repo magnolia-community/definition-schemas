@@ -1,8 +1,8 @@
 {
-    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/dialog.schema.json",
+    "$id": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/dialog.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Dialog definition",
-    "description": "Dialogs for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Dialog+definition",
+    "title": "UI6 Dialog definition",
+    "description": "Dialogs for Magnolia CMS https://docs.magnolia-cms.com/product-docs/Templating/Dialog-definition.html",
     "type": "object",
     "properties": {
       "class": { 
@@ -11,7 +11,7 @@
         "default": "info.magnolia.ui.dialog.ConfiguredFormDialogDefinition"
       },
       "actions": { 
-        "description": "Contains action definitions which define how the data is submitted. The actions are rendered to users as buttons. Typically you need at least save and cancel actions.",
+        "description": "Contains action definitions which define how the data is submitted. The actions are rendered to users as buttons. Typically you need at least commit and cancel actions.",
         "type": "object",
         "properties": {
           "commit": {
@@ -20,12 +20,17 @@
               "class": { 
                 "description": "Defines an action for saving a dialog. This handler can be overriden by extending from the default class.",
                 "type": "string",
-                "default": "info.magnolia.ui.dialog.action.SaveDialogActionDefinition"
+                "examples": [  "info.magnolia.ui.contentapp.action.CommitActionDefinition" ]
+              },
+              "$type": {
+                "description": "Action with an @ActionType annotation which can be used for saving a dialog.",
+                "type": "string",
+                "examples": [  "commitAction" ]
               },
               "label": {
                 "description": "Button label.",
                 "type": "string",
-                "default": "Save"
+                "examples": [  "Save changes" ]
               }
             },
             "additionalProperties": true
@@ -34,14 +39,19 @@
             "type": "object",
             "properties": {
               "class": {
-                "description": "Defines an action for cenceling a dialog.",
+                "description": "Defines an action for canceling a dialog.",
                 "type": "string",
-                "default": "info.magnolia.ui.dialog.action.CancelDialogActionDefinition"
+                "examples": [  "info.magnolia.ui.contentapp.action.CloseActionDefinition" ]
+              },
+              "$type": {
+                "description": "Action with an @ActionType annotation which can be used for canceling a dialog.",
+                "type": "string",
+                "examples": [  "closeAction" ]
               },
               "label": {
                 "description": "Button label.",
                 "type": "string",
-                "default": "Cancel"
+                "examples": [  "Cancel" ]
               }
             },
             "additionalProperties": true
@@ -49,188 +59,54 @@
         },
         "additionalProperties": true
       },
-      "actionArea": {
-        "description": "Lets you provide additional actions and specify a renderer, if required. You need a renderer when the action requires more than just a button (for instance for an upload action).",
+      "footerLayout": {
+        "description": "Contains the action area configuration. Specifies the action component layout via LayoutDefinition.",
         "type": "object",
         "properties": {
-          "secondaryActions": {
-            "description": "Add subnodes to match the secondary actions defined in the actions node. The order of the subnodes defines the sequence in which they are rendered. Actions configured under secondaryActions are rendered on the left and other actions are on the right side.",
-            "type": "object"
-          },
-          "actionRenderers": {
-            "description": "Define a subnode for each action which requires its own renderer. The subnode should contain a rendererClass property. The class must implement ActionRenderer.",
-            "type": "object"
+          "$type": {
+            "description": "Layout with an @LayoutType annotation. Set the layout of the form.",
+            "type": "string",
+            "examples": [ "declarativeLayout", "defaultEditorActionLayout", "form", "horizontal", "stacked", "tabbedLayout" ]
           }
         },
         "additionalProperties": true
       },
-      "dialogLabelItemProperty": { 
-        "description": "Allows you to set the dialog's caption dynamically through a property holding the preferred value for the caption, for example through the jcrName property. If no dialogLabelItemProperty is configured for the dialog, Magnolia tries to retrieve the caption from the label property or from the respective i18n key in the language bundle associated with the dialog.",
-        "type": "string" 
-      },
       "label": { 
-        "description": "A property that sets the dialog's caption. The value is ignored if the dialogLabelItemProperty property is set. The value can be literal such as  Group or retrieved from the  message bundle with a key such as security-app.group.label.",
+        "description": "Dialog label displayed to editors. The value can be literal or a key of a message bundle. If you do not provide the property, Magnolia will fall back to a generated i18n key. If you do not want to have any label, set the property to an empty string such as label: '' in YAML.",
         "type": "string"
+      },
+      "light": { 
+        "description": "When false, the dialog blacks out the background—you can only interact with the dialog until it is closed.",
+        "type": "boolean"
       },
       "form": {
         "description": "Contains a form definition which defines the fields where content is entered.",
         "type": "object",
         "properties": {
-          "tabs": {
-            "items": [
-              {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "description": "The name of the tab. Arbitrary node name. Use a name that describes the content of the tab like imageTab or addressTab.",
-                    "type": "string" 
-                  },
-                  "fields": {
-                    "items": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "class": {
-                            "description": "A fully-qualified field definition class name.",
-                            "type": "string",
-                            "examples": [ 
-                              "info.magnolia.ui.form.field.definition.BasicUploadFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.CheckboxFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.CodeFieldDefinition",
-                              "info.magnolia.editor.app.field.CollapsibleCompositeFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.CompositeFieldDefinition",
-                              "info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.DateFieldDefinition",
-                              "info.magnolia.editor.app.field.ExpandingTextFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.HiddenFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.LinkFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.MultiValueFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.PasswordFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.RichTextFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.SelectFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.StaticFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.SwitchableFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.TextFieldDefinition",
-                              "info.magnolia.ui.form.field.definition.TwinColSelectFieldDefinition"
-                            ]
-                          },
-                          "description": {
-                            "description": "Help text displayed when the user clicks the help icon. The value can be literal or retrieved from the message bundle with a key. Use alphanumeric characters in literal values. Not applicable to the static field.", 
-                            "type": "string"
-                          },
-                          "fieldType": { 
-                            "description": "A field alias name. Used instead of the class property to identify the field type.",
-                            "type": "string",
-                            "examples": [ 
-                              "basicUpload",
-                              "checkbox",
-                              "code",
-                              "collapsibleComposite",
-                              "composite",
-                              "damUpload",
-                              "date",
-                              "expandingText",
-                              "hidden",
-                              "link",
-                              "multiValue",
-                              "optionGroup",
-                              "password",
-                              "richText",
-                              "select",
-                              "static",
-                              "switchable",
-                              "text",
-                              "twinColSelect"
-                            ]
-                          },
-                          "i18n": { 
-                            "description": "Enables i18n authoring support which allows editors to write foreign-language or regionally targeted content. A two-letter language identifier (en, de, fr etc.) is displayed on controls where i18n is set to true.",
-                            "type": "boolean" 
-                          },
-                          "label": { 
-                            "description": "Field label displayed to editors. The value can be literal such as Product name or retrieved from the message bundle with a key such as products.product.label. Use alphanumeric characters in literal values. If you don't provide the property then Magnolia falls back to a generated i18n key and displays they key in the UI. If you don't want a label at all then define the property and set its value to empty space such as label: ' ' in YAML.",
-                            "type": "string" 
-                          },
-                          "name": {
-                            "description": "Name of the node where the value is saved. The name jcrName is reserved. Use alphanumeric characters.",
-                            "type": "string" 
-                          },
-                          "placeholder": {
-                            "description": "The placeholder text to be displayed in the empty field. The property replaces the deprecated placeholder text field. Applicable in the text, link and comboBox fields. The field is optional, but you should provide a translation or a hard-coded label, otherwise the empty field will display its auto-generated 18n key instead.",
-                            "type": "string" 
-                          },
-                          "readOnly": {
-                            "description": "Makes the field uneditable. Adding this property has the same effect as creating a static field.",
-                            "type": "string" 
-                          },
-                          "required": {
-                            "description": "Makes the field required (mandatory). An asterisk is displayed next to the field label. See also Checking for null values.",
-                            "type": "boolean" 
-                          },
-                          "requiredErrorMessage": {
-                            "description": "Error message displayed when required is true and the user saves an empty field. The value can be literal or retrieved from the message bundle with a key such as validation.message.required.",
-                            "type": "string" 
-                          },
-                          "styleName": {
-                            "description": "Adds one or more style names to this component. Multiple styles can be specified as a space-separated list of style names such as checkbox disabled. The style name will be rendered as an HTML class name, which can be used in a CSS definition. The class name is added to the field by calling the Vaadin method addStyleName.",
-                            "type": "string" },
-                          "transformerClass": {
-                            "description": "Property transformer classes define how field values are stored in the repository. Each field has a default transformer class. You don't need to define a class unless you want to override the default. The value is a fully-qualified class name.", 
-                            "type": "string",
-                            "examples": [
-                              "info.magnolia.ui.form.field.transformer.basic.BasicTransformer",
-                              "info.magnolia.ui.form.field.transformer.composite.CompositeTransformer",
-                              "info.magnolia.ui.form.field.transformer.composite.SwitchableTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.MultiValueTransformer",
-                              "info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer",
-                              "info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.MultiValueJSONTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.MultiValueChildrenNodeTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.MultiValueChildNodeTransformer",
-                              "info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodeTransformer"
-                            ]
-                          },
-                          "type": {
-                            "description": "JCR property type of the stored value such as String, Boolean, Date or any other supported and defined data type. Most fields set a default value automatically.",
-                            "type": "string",
-                            "examples": [
-                              "Boolean",
-                              "Binary",
-                              "Date",
-                              "Decimal",
-                              "Double",
-                              "Decimal",
-                              "Name",
-                              "Path",
-                              "String",
-                              "Reference",
-                              "Weakreference",
-                              "Uri"
-                            ] 
-                          }
-                        },
-                        "additionalProperties": true
-                      }
-                    ]
-                  }
-                }
+          "properties": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "$ref": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/field.properties.text.json",
+                "additionalProperties": true
+              },
+              "link": {
+                "$ref": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/field.properties.link.json",
+                "additionalProperties": true
               }
-            ]
+            }
           }
         },
         "additionalProperties": true
       },
-      "modalityLevel": { 
-        "description": "Modality level defines how intrusive the dialog is. Valid values are strong (default), light and non-modal .",
-        "type": "string",
-        "default": "strong",
-        "examples": [ "light", "non-modal", "strong" ]
-      },
       "wide": { 
-        "description": "When set true the dialog opens in wide mode using all available horizontal space. Click the expand/collapse button in the top right corner to toggle between the wide and normal (720px) modes.",
+        "description": "When true, the dialog appears in wide mode using the maximum width of the viewport with a 20-pixel    padding on the left and right. See also the width property.",
         "type": "boolean" 
+      },
+      "width": { 
+        "description": "Defines the dialog width. Possible values are small (700 pixels), medium (1000 pixels) and wide. For small and medium to work, the wide property has to be false.",
+        "type": "string",
+        "examples": [ "small", "medium" ]
       }
     },
     "additionalProperties": true
