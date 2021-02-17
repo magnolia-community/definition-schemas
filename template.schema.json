@@ -1,8 +1,8 @@
 {
-    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/template.schema.json",
+    "$id": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/template.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Template definition",
-    "description": "Templating for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Template+definition",
+    "title": "UI6 Template definition",
+    "description": "Templating for Magnolia CMS https://docs.magnolia-cms.com/product-docs/Templating.html",
 
     "definitions": {
       "areas": {
