@@ -1,8 +1,8 @@
 {
-    "$id": "https://raw.githubusercontent.com/magnolia-community/vscode-schemas/master/field.schema.json",
+    "$id": "https://raw.githubusercontent.com/magnolia-community/definition-schemas/UI6/field.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Field Defintion",
-    "description": "Fields for Magnolia CMS https://documentation.magnolia-cms.com/display/DOCS/Field+definition",
+    "title": "UI6 Field Defintion",
+    "description": "Fields for Magnolia CMS https://docs.magnolia-cms.com/product-docs/Templating/Dialog-definition/Field-definition.html",
     "type": "object",
     "properties": {
       "defintionClass": {
